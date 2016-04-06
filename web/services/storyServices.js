@@ -15,7 +15,7 @@
     StoryServices.factory('CategoryRepository', ['$http', function ($http) {
         return {
             getAllCategories: function() {
-                return $http.get('http://felix-rest.com/api/categories');
+                return $http.get('http://felix-rest.com/api/product-category/categories');
                 }
             };
         }]);
