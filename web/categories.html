@@ -8,6 +8,8 @@
     <script src="./controller/store.js"></script>
     <script src="./controller/product.js"></script>
     <script src="./services/storyServices.js"></script>
+    <script> angular.module("store", ["customFilters"]); </script>
+    <script src="filters/customFilters.js"></script>
 </head>
 <body>
     <div class="container">
@@ -17,9 +19,10 @@
                 <div class="panel panel-default">
                     <div class="panel-body">
 
-                        <div ng-controller="StoreController as store">
+                        <div ng-controller="StoreController as store" ng-controller="CategoryHighlight">
                             <div ng-repeat="category in store.categories">    
-                                    <h3>Category Name: {{ category.title }}</h3>
+                                <a ng-click="selectCategory(category)" ng-class="getCategoryClass(category)"> 
+                                    Category Name: {{ category.title }} </a><br>
                             </div>
                         </div>
                     </div>
@@ -28,7 +31,7 @@
         </div>
     </div>
                   
-                            
+                    
                                 
     
 </body>

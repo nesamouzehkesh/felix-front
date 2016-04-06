@@ -1,7 +1,8 @@
 (function() {
-    var app = angular.module('store', ['product', 'StoryServices']);
+    var app = angular.module('store', ['product', 'StoryServices'])
+            .constant("categoryActiveClass", "text-danger");
     
-    app.controller('StoreController', ['$http', 'ProductRepository', 'CategoryRepository', 
+    app.controller('StoreController', ['$http', '$scope', 'ProductRepository', 'CategoryRepository', 
         function($http, ProductRepository, CategoryRepository) {
         var store = this;
         store.products = [];
@@ -45,6 +46,18 @@
         };
     });
     
+    app.controller("CategoryHighlight", function ($scope, categoryActiveClass) {
+
+        var selectedCategory = null;
+
+        $scope.selectCategory = function (newCategory) {
+            selectedCategory = newCategory;
+        };
+        $scope.getCategoryClass = function (category) {
+            return selectedCategory == category ? categoryActiveClass : "";
+        }
+    
+    });
     
     
 })();
