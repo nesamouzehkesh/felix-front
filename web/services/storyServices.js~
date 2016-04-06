@@ -12,14 +12,6 @@
         };
     }]);
 
-    StoryServices.factory('CategoryRepository', ['$http', function ($http) {
-        return {
-            getAllCategories: function() {
-                return $http.get('http://felix-rest.com/api/categories');
-                }
-            };
-        }]);
-
     StoryServices.factory('productFactory', function ($resource) {
         return $resource('../api/products/:id', {}, {
             show: { method: 'GET' },
@@ -27,7 +19,4 @@
             delete: { method: 'DELETE', params: {id: '@id'} }
         })
     });
-    
-   
-
 })();

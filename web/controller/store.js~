@@ -1,22 +1,31 @@
 (function() {
     var app = angular.module('store', ['product', 'StoryServices']);
     
-    app.controller('StoreController', ['$http', 'ProductRepository', 'CategoryRepository', 
-        function($http, ProductRepository, CategoryRepository) {
+    app.controller('StoreController', ['$http', 'ProductRepository', function($http, ProductRepository) {
         var store = this;
-        store.products = [];
-        store.categories = [];
+        store.products = [
+            {
+                title: 'test',
+                price: 123,
+                description: 'description',
+                reviews: [
+                    {
+                        stars: 1,
+                        body: 'body',
+                        author: 'nesa@test.com'
+                    }
+                ]
+            }
+        ];
         
         ProductRepository.getAllProducts()
             .success(function (data) {
-                store.products = data;
+                store.products = data.products;
             });
-          
-        CategoryRepository.getAllCategories()
-            .success(function (data) {
-                store.categories = data;
-            });    
-        /*        
+            
+        /*
+
+        
         this.deleteProduct = function(product, index) {
             ProductRepository.deleteProduct(product.id)
                 .success(function (data) {
@@ -24,7 +33,6 @@
                 });
         };
         */
-       
     }]);
 
     app.controller('PanelController', function() {
@@ -44,7 +52,5 @@
             this.review = {};
         };
     });
-    
-    
     
 })();
