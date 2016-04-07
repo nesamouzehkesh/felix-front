@@ -15,12 +15,10 @@
             <div class="col-sm-3"></div>
             <div class="col-sm-9">
                 <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div ng-controller="StoreController as store" >
-                            <div ng-controller="CategoryHighlight" ng-repeat="category in store.categories">    
-                                <a ng-click="selectCategory(category)" ng-class="getCategoryClass(category)"> 
-                                    Category Name: {{ category.title }} </a><br>
-                            </div>
+                    <div class="panel-body" ng-controller="StoreController as store">
+                        <div ng-controller="CategoryHighlight" ng-repeat="category in store.categories">    
+                            <a ng-click="selectCategory(category)" ng-class="getCategoryClass(category)"> 
+                                Category Name: {{ category.title }} </a><br>
                         </div>
                     </div>
                 </div>
