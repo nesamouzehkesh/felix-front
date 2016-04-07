@@ -1,9 +1,9 @@
 (function() {
-    var app = angular.module('store', ['product', 'StoryServices'])
+    var app = angular.module('store', ['product', 'category','StoryServices'])
             .constant("categoryActiveClass", "text-danger");
     
     app.controller('StoreController', ['$http', '$scope', 'ProductRepository', 'CategoryRepository', 
-        function($http, ProductRepository, CategoryRepository) {
+        function($http, $scope, ProductRepository, CategoryRepository) {
         var store = this;
         store.products = [];
         store.categories = [];
@@ -54,8 +54,8 @@
             selectedCategory = newCategory;
         };
         $scope.getCategoryClass = function (category) {
-            return selectedCategory == category ? categoryActiveClass : "";
-        }
+            return selectedCategory === category ? categoryActiveClass : "";
+        };
     
     });
     
