@@ -21,7 +21,7 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <div ng-controller="StoreController as store">
-                                <div ng-repeat="product in store.products | range:selectedPage:pageSize">    
+                                <div ng-repeat="product in store.products">    
                                     <div ng-hide="product.sold_out">
                                         <h3>Name: {{ product.title }}</h3>
                                         <!--
@@ -96,13 +96,13 @@
                                         
                                     </div>
                                 </div>
-                                <div ng-controller="PaginationController" class="pull-right btn-group">
+                                <!--<div ng-controller="PaginationController" class="pull-right btn-group">
                                     <a ng-repeat= "page in data.products | pageCount:pageSize"
                                         ng-click="selectPage($index + 1)" class="btn btn-default"
                                         ng-class="getPageClass($index + 1)">
                                         {{$index + 1}}
                                     </a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>

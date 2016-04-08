@@ -1,7 +1,7 @@
 (function() {
     var app = angular.module('store', ['product','StoryServices'])
-            .constant("categoryActiveClass", "btn-primary")
-            .constant("productListPageCount", 3);
+            .constant("categoryActiveClass", "btn-primary");
+            //.constant("productListPageCount", 3);
     
     app.controller('StoreController', ['$http', '$scope', '$filter', 'ProductRepository', 'CategoryRepository', 
         function($http, $scope, $filter, ProductRepository, CategoryRepository) {
@@ -30,7 +30,7 @@
         
     }]);
 
-    app.controller('PaginationController', [ '$scope', '$filter', 'ProductRepository', 
+    /*app.controller('PaginationController', [ '$scope', '$filter', 'ProductRepository', 
         function($scope, $filter, productListPageCount, productListActiveClass) {
             
         $scope.selectedPage = 1;
@@ -44,7 +44,7 @@
         return $scope.selectedPage == page ? productListActiveClass : "";
         };
        
-        }]);
+        }]);*/
 
 
     app.controller('PanelController', function() {
@@ -71,7 +71,7 @@
 
         $scope.selectCategory = function (newCategory) {
             selectedCategory = newCategory.id;
-            $scope.selectedPage = 1;
+            //$scope.selectedPage = 1;
         };
         $scope.getCategoryClass = function (category) {
             return selectedCategory === category.id ? categoryActiveClass : "";
