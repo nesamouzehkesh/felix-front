@@ -1,4 +1,4 @@
-<!doctype html>
+<!doctzype html>
 <html ng-app="store">
 <head>
     <title>Categories List!</title>
@@ -16,17 +16,16 @@
             <div class="col-sm-9">
                 <div class="panel panel-default">
                     <div class="panel-body" ng-controller="StoreController as store">
-                        <div ng-controller="CategoryHighlight" ng-repeat="category in store.categories">    
-                            <a ng-click="selectCategory(category)" ng-class="getCategoryClass(category)"> 
+                        <h3> Select a product category: </h3>
+                        <br>
+                        <div ng-controller="CategoryHighlight">    
+                            <a ng-repeat="category in store.categories" ng-click="selectCategory(category)" ng-class="getCategoryClass(category)" class=" btn btn-block btn-default"> 
                                 Category Name: {{ category.title }} </a><br>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-                  
-                    
-                                
-    
+    </div>    
 </body>
+</html>

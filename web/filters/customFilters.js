@@ -15,5 +15,36 @@ angular.module("customFilters", [])
             } else {
                 return data;
             }
+        };        
+    })
+
+    .filter("range", function ($filter) { //$filter declares the dependency on the limitTo filter
+        return function (data, page, size) { //arguments for the currently selected page 
+        if (angular.isArray(data) && angular.isNumber(page) && angular.isNumber(size)) {
+            var start_index = (page - 1) * size; // page is used to determine the start index of the 
+            //range (e.g. first 3 pages, second 3 pages, etc.)
+            //size is used to determine the end index
+            if (data.length < start_index) {
+                return [];
+            } else {
+                return $filter("limitTo")(data.splice(start_index), size);
+            }
+            } else {
+                return data;
+            }
+        };
+    })
+    
+    .filter("pageCount", function () {
+        return function (data, size) {
+        if (angular.isArray(data)) {
+            var result = [];
+            for (var i = 0; i < Math.ceil(data.length / size) ; i++) {
+                result.push(i);
+            }
+            return result;
+        } else {
+            return data;
+        }
         };
 });
