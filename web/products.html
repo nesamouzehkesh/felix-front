@@ -5,13 +5,11 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/app.css">
     <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-    <script>
-    angular.module("sportsStore", ["customFilters"]);
-    </script>
     <script src="filters/customFilters.js"></script>
     <script src="./controller/store.js"></script>
     <script src="./controller/product.js"></script>
     <script src="./services/storyServices.js"></script>
+
 </head>
     <body>
         <div class="container">
@@ -20,7 +18,7 @@
                 <div class="col-sm-9">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div ng-controller="StoreController as store">
+                            <div ng-controller="StoreController as store" ng-controller="MyController" class="my-controller">
                                 <div ng-repeat="product in store.products">    
                                     <div ng-hide="product.sold_out">
                                         <h3>Name: {{ product.title }}</h3>
@@ -96,6 +94,7 @@
                                         
                                     </div>
                                 </div>
+    
                                 <!--<div ng-controller="PaginationController" class="pull-right btn-group">
                                     <a ng-repeat= "page in data.products | pageCount:pageSize"
                                         ng-click="selectPage($index + 1)" class="btn btn-default"

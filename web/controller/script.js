@@ -29,8 +29,6 @@
        
         
     }]);
-    
-    
 
     /*app.controller('PaginationController', [ '$scope', '$filter', 'ProductRepository', 
         function($scope, $filter, productListPageCount, productListActiveClass) {

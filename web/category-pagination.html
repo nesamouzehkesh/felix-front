@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+
+<head>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+  <script src="controller/category-pagination.js"></script>
+  <script src="./services/storyServices.js"></script>
+    
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div ng-controller="MyCatController" class="my-controller">
+          <h1>Category List</h1>
+
+          <small>this is in "MyCatController"</small>
+
+
+          <div class="row">
+            <div class="col-xs-4">
+              <h3>Current Page: {{ currentPage }}</h3>
+            </div>
+            <div class="col-xs-4">
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-xs-4">
+              <label for="search">items per page:</label>
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+          </div>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                       <th>Category Title</th>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="category in categories | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                            <td>{{ category.title }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
+        </div>
+
+        <div ng-controller="CatOtherController" class="other-controller">
+          <small>this is in "CatOtherController"</small>
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" 
+              template-url="bower_components/angularUtils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
