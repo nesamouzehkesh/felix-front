@@ -43,6 +43,12 @@
                     <tbody>
                         <tr dir-paginate="category in categories | filter:q | itemsPerPage: pageSize" current-page="currentPage">
                             <td>{{ category.title }}</td>
+                            <td>
+                                <button class="pull-right  btn btn-danger" type="submit" 
+                                        ng-click="deleteItem(category.id)">
+                                    Delete
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

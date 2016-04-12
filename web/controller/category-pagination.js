@@ -15,6 +15,18 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
       $scope.pageChangeHandler = function(num) {
           console.log('categories page changed to ' + num);
       };
+      
+      $scope.deleteItem = function (itemId) {
+            CategoryRepository.deleteCategory(itemId)
+                .success(function (data) {
+                    for (var i = 0; i < $scope.category.length; i++ ) {
+                        if( $scope.category[i].id === itemId ) {
+                            $scope.category.splice(i, 1 );     
+                            break;
+                        }
+                    }              
+            }); 
+        };
     }]);
 
     myApp.controller('CatOtherController', ['$scope', function ($scope) {
@@ -22,5 +34,6 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
         console.log('going to page ' + num);
       };
     }]);
+    
 
 })();

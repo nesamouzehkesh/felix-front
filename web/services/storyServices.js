@@ -16,7 +16,10 @@
         return {
             getAllCategories: function() {
                 return $http.get('http://felix-rest.com/api/product-category/categories');
-                }
+                },
+            deleteCategory: function(id) {
+            return $http.delete('http://felix-rest.com/api/product-category/category', {id: id});
+        }
             };
         }]);
 
