@@ -4,10 +4,14 @@
 <head>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
+  <link rel="stylesheet" href="bower_components/ngModal/dist/ng-modal.css">
+  <script type="text/javascript" src="bower-components/ngModal/dist/ng-modal.min.js"></script>
+  <script type="text/javascript" src="bower-components/angular-bootstrap/ui-bootstrap-csp.css"></script>
+  <script type="text/javascript" src="bower-components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
   <script src="controller/product-pagination.js"></script>
-  <script src="./services/storyServices.js"></script>
+  <script src="./services/storeServices.js"></script>
     
 </head>
 <body>
@@ -45,6 +49,37 @@
                                         ng-click="deleteItem(product.id)">
                                     Delete
                                 </button>
+                            </td>
+                            <td>
+                                <button class="pull-right  btn btn-primary" type="submit" 
+                                       data-toggle="modal" data-target="#addProductModal" ng-click="addProductForm">
+                                    Add
+                                </button>
+                                <div class="modal-content modal fade" id="addProductModal">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title">Add your product here</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <fieldset class="form-group">
+                                                <select class="form-control" ng-options="stars for stars in [5,4,3,2,1]"  
+                                                    title="Stars">
+                                                    <option value="">Product ID</option>
+                                                </select>
+                                            </fieldset> 
+                                            <fieldset class="form-group">
+                                                <textarea class="form-control" placeholder="Write a short description of the product..." 
+                                                    title="Description"></textarea>
+                                            </fieldset>   
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelForm">Close</button>
+                                        <button type="button" class="btn btn-primary" ng-click="submitForm">Add Product</button>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

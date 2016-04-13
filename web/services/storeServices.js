@@ -1,7 +1,7 @@
 (function() {
-    var StoryServices = angular.module('StoryServices', []);
+    var StoreServices = angular.module('StoryServices', []);
     
-    StoryServices.factory('ProductRepository', ['$http', function ($http) {
+    StoreServices.factory('ProductRepository', ['$http', function ($http) {
         return {
             getAllProducts: function() {
                 return $http.get('http://felix-rest.com/api/product/products');
@@ -12,7 +12,7 @@
         };
     }]);
 
-    StoryServices.factory('CategoryRepository', ['$http', function ($http) {
+    StoreServices.factory('CategoryRepository', ['$http', function ($http) {
         return {
             getAllCategories: function() {
                 return $http.get('http://felix-rest.com/api/product-category/categories');
@@ -23,7 +23,7 @@
             };
         }]);
 
-    StoryServices.factory('productFactory', function ($resource) {
+    StoreServices.factory('productFactory', function ($resource) {
         return $resource('../api/products/:id', {}, {
             show: { method: 'GET' },
             update: { method: 'PUT', params: {id: '@id'} },
