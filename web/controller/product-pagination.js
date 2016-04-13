@@ -1,8 +1,8 @@
 (function() {
 
-var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','StoryServices','ui.bootstrap']);
+var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','StoryServices']);
 
-    myApp.controller('MyController', ['$scope', '$http', 'ProductRepository', '$modal', function ($scope, $http, ProductRepository, $modal) {
+    myApp.controller('MyController', ['$scope', '$http', 'ProductRepository', function ($scope, $http, ProductRepository) {
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.products = [];
@@ -16,12 +16,7 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
             console.log('meals page changed to ' + num);
         };
         
-        $scope.addProductForm = function (){
-            $modal.open({
-                templateUrl: '/product-pagination.html',
-                controller: 'MyController'
-            });
-        };
+        
 
         $scope.deleteItem = function (itemId) {
             ProductRepository.deleteProduct(itemId)
@@ -36,7 +31,7 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
         };
     }]);
     
-        
+    
 
     myApp.controller('OtherController', ['$scope', function ($scope) {
       $scope.pageChangeHandler = function(num) {

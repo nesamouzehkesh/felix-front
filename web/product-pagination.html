@@ -4,10 +4,14 @@
 <head>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
-  <link rel="stylesheet" href="bower_components/ngModal/dist/ng-modal.css">
-  <script type="text/javascript" src="bower-components/ngModal/dist/ng-modal.min.js"></script>
-  <script type="text/javascript" src="bower-components/angular-bootstrap/ui-bootstrap-csp.css"></script>
-  <script type="text/javascript" src="bower-components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <!--
+  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-csp.css"></script>
+  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  -->
+  
+  <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+  
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
   <script src="controller/product-pagination.js"></script>
@@ -51,39 +55,49 @@
                                 </button>
                             </td>
                             <td>
-                                <button class="pull-right  btn btn-primary" type="submit" 
-                                       data-toggle="modal" data-target="#addProductModal" ng-click="addProductForm">
-                                    Add
+                                <button class="pull-right  btn btn-primary" type="submit" data-toggle="modal" data-target="#myModal">
+                                    Edit
                                 </button>
-                                <div class="modal-content modal fade" id="addProductModal">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
-                                        <h4 class="modal-title">Add your product here</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <form>
-                                            <fieldset class="form-group">
-                                                <select class="form-control" ng-options="stars for stars in [5,4,3,2,1]"  
-                                                    title="Stars">
-                                                    <option value="">Product ID</option>
-                                                </select>
-                                            </fieldset> 
-                                            <fieldset class="form-group">
-                                                <textarea class="form-control" placeholder="Write a short description of the product..." 
-                                                    title="Description"></textarea>
-                                            </fieldset>   
-                                        </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelForm">Close</button>
-                                        <button type="button" class="btn btn-primary" ng-click="submitForm">Add Product</button>
-                                    </div>
-                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </table>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                    Launch demo modal
+                  </button>
+
+                  <!-- Modal -->
+                  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                          <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                          
+
+                        <form name="addProductFrom"
+                            ng-submit="MyController.addNewProduct(product)">
+                            <b>Add a new product:</b>
+                            <fieldset class="form-group">
+                                <textarea class="form-control" placeholder="Write a short review of the product..." 
+                                          title="Review"ng-model="reviewCtrl.review.body"></textarea>
+                            </fieldset>   
+                            <fieldset class="form-group">
+                                <input class="form-control" placeholder="jimmyDean@example.org" title="Email"
+                                       ng-model="reviewCtrl.review.author" type="email" />
+                            </fieldset>
+                            <fieldset class="form-group">
+                                <input type="submit" class="btn btn-primary pull-right" value="Submit Review" />
+                            </fieldset>
+                        </form>                            
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                
             </div>
           </div>
         </div>
