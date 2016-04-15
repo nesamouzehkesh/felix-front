@@ -10,7 +10,10 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
         ProductRepository.getAllProducts()
           .success(function (data) {
               $scope.products = data;
-          }); 
+          }) 
+          .error(function (error) {
+                $scope.errorMsg = error;
+            });
 
         $scope.pageChangeHandler = function(num) {
             console.log('meals page changed to ' + num);
