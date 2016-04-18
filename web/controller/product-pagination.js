@@ -1,8 +1,9 @@
 (function() {
 
-var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','StoryServices']);
+var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','StoreServices', 'Cart']);
 
-    myApp.controller('MyController', ['$scope', '$http', 'ProductRepository', function ($scope, $http, ProductRepository) {
+    myApp.controller('MyController', ['$scope', '$http', 'ProductRepository', 'cartService', function 
+        ($scope, $http, ProductRepository, cartService) {
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.products = [];
@@ -12,14 +13,16 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
               $scope.products = data;
           }) 
           .error(function (error) {
-                $scope.errorMsg = error;
+                $scope.error = error;
             });
 
         $scope.pageChangeHandler = function(num) {
             console.log('meals page changed to ' + num);
         };
         
-        
+        $scope.addProductToCart = function (product) {
+            cartService.addProduct(product.id, product.name, product.price);
+        }
 
         $scope.deleteItem = function (itemId) {
             ProductRepository.deleteProduct(itemId)

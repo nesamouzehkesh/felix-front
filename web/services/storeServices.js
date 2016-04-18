@@ -1,5 +1,5 @@
 (function() {
-    var StoreServices = angular.module('StoryServices', []);
+    var StoreServices = angular.module('StoreServices', []);
     
     StoreServices.factory('ProductRepository', ['$http', function ($http) {
         return {
@@ -30,7 +30,4 @@
             delete: { method: 'DELETE', params: {id: '@id'} }
         })
     });
-    
-   
-
 })();

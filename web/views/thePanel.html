@@ -5,7 +5,7 @@
                        <th>Product Title</th>
                     </thead>
                     <tbody> 
-                        <tr ng-hide="errorMsg" dir-paginate="product in products | filter:q | itemsPerPage: pageSize" 
+                        <tr dir-paginate="product in products | filter:q | itemsPerPage: pageSize" 
                             current-page="currentPage"> <!--if there is an error with http req don't show the row -->
                             <td>{{ product.title }}</td>
                             <td>
@@ -19,11 +19,12 @@
                                     Edit
                                 </button>
                             </td>
-                            <!--Error message if the http request cannot find the product -->
-                            <div class="alert alert-danger" ng-show="errorMag">
-                                Error ({{errorMsg.status}}). The product data was not loaded.
-                                <a href="/product-pagination.html" class="alert-link">Click here to try again</a>
-                            </div>
+                            <td>
+                                <button ng-click="addProductToCart(product)"
+                                        class="btn btn-success pull-right">
+                                Add to cart
+                                </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

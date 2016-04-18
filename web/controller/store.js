@@ -1,5 +1,5 @@
 (function() {
-    var app = angular.module('store', ['product','StoryServices'])
+    var app = angular.module('store', ['product','StoreServices'])
             .constant("categoryActiveClass", "btn-primary");
             //.constant("productListPageCount", 3);
     

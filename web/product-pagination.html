@@ -16,6 +16,7 @@
   <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
   <script src="controller/product-pagination.js"></script>
   <script src="./services/storeServices.js"></script>
+  <script src="components/cart.js"></script>
     
 </head>
 <body>
@@ -39,6 +40,13 @@
             </div>
           </div>
           <br>
+            <div class="alert alert-danger" ng-show="error">
+                Error ({{ error.status }}). The product data was not loaded.
+            </div>  
+          
+            <div class="navbar navbar-inverse">
+                <cart-summary />
+            </div>
           <!-- The panel generates here -->
           <ng-include src="'views/thePanel.html'"></ng-include>
         </div>
