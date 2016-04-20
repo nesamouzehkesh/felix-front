@@ -17,7 +17,23 @@
   <script src="controller/product-pagination.js"></script>
   <script src="./services/storeServices.js"></script>
   <script src="components/cart.js"></script>
-    
+  <script>
+    angular.module("store", ["cart", "ngRoute"])
+        .config(function ($routeProvider) {
+            $routeProvider.when("/checkout", {
+                templateUrl: "/views/checkoutSummary.html"
+            });
+ 
+            $routeProvider.when("/product-pagination", {
+                templateUrl: "/product-pagination.html"
+            });
+ 
+            $routeProvider.otherwise({
+                templateUrl: "/views/thePanel.html"
+            });
+        });
+</script>
+<script src="bower_components/angular-route/angular-route.js"></script>   
 </head>
 <body>
   <div class="container">
@@ -47,8 +63,12 @@
             <div class="navbar navbar-inverse">
                 <cart-summary />
             </div>
-          <!-- The panel generates here -->
-          <ng-include src="'views/thePanel.html'"></ng-include>
+          
+          <!-- below used to be used for panel generation, but now we use ng-view -->
+          <!--  <ng-include src="'views/thePanel.html'"></ng-include>*/ -->
+          
+          <!-- this part gets to show any partial view that the current route chooses -->
+          <ng-view />
         </div>
 
         <div ng-controller="OtherController" class="other-controller">

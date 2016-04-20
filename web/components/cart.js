@@ -27,19 +27,34 @@ var Cart = angular.module("Cart", [])
                     }
                 }
             },
-            getProducts: function () {
+            getProductsInCart: function () {
                 return cartData;
             }
         }
     });
+    /* 
+     * The service above is for the functionality of what happens when a user clicks on 
+     * "Add to Cart" button in the main markup. The calculations of the total price and 
+     * number of items (based on the specific product's id, name and price are done by 
+     * this service methods and then there is the last method that actually returns 
+     * the shopping cart items as an array. 
+     * */
     
+    /* 
+     * The directive then takes that shopping cart array and generates two output needed 
+     * for the markup to show on top of the page. Generating the outputs are done by 
+     * its controller and they will be shown the templateUrl provided. This little 
+     * html markup (the templateUrl) is then placed wherever you put your directive 
+     * in the markup as an element. 
+     * */
     Cart.directive("cartSummary", function (cartService) {
         return {
             restrict: "E",
-            templateUrl: "components/cartSummary.html",
+            templateUrl: "components/cartSummary.html", //the html that generates wherever 
+                                                        //you put your directive as an element 
             controller: function ($scope) {
 
-                var cartData = cartService.getProducts();
+                var cartData = cartService.getProductsInCart();
 
                 $scope.total = function () {
                     var total = 0;
@@ -60,3 +75,10 @@ var Cart = angular.module("Cart", [])
         };
     });
 })();
+
+
+/* 
+ * So service says this is how I generate the shopping cart array if you give me a 
+ * product specifics, and directive says this is how I show the items in that 
+ * generated array the way I want (in this case its total price and its total count). 
+ */
