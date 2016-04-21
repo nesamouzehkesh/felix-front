@@ -1,3 +1,10 @@
+/* 
+ * This is a cart bundle that will have both the functionalities needed in a 
+ * service (with few methods) and also a directive that will help to generate the 
+ * missing "shopping cart" section of your page ;-) Ciao!!!
+ * */
+
+
 (function() {
 var Cart = angular.module("Cart", [])
     

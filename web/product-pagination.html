@@ -9,31 +9,28 @@
   <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   -->
   
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  
-  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+  <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>   
+  
   <script src="controller/product-pagination.js"></script>
-  <script src="./services/storeServices.js"></script>
+  <script src="services/storeServices.js"></script>
   <script src="components/cart.js"></script>
   <script>
-    angular.module("store", ["cart", "ngRoute"])
+    angular.module("myApp")
         .config(function ($routeProvider) {
             $routeProvider.when("/checkout", {
                 templateUrl: "/views/checkoutSummary.html"
-            });
- 
-            $routeProvider.when("/product-pagination", {
-                templateUrl: "/product-pagination.html"
             });
  
             $routeProvider.otherwise({
                 templateUrl: "/views/thePanel.html"
             });
         });
-</script>
-<script src="bower_components/angular-route/angular-route.js"></script>   
+  </script>
+  
 </head>
 <body>
   <div class="container">
@@ -69,14 +66,6 @@
           
           <!-- this part gets to show any partial view that the current route chooses -->
           <ng-view />
-        </div>
-
-        <div ng-controller="OtherController" class="other-controller">
-          <small>this is in "OtherController"</small>
-          <div class="text-center">
-          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" 
-              template-url="bower_components/angularUtils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
-          </div>
         </div>
       </div>
     </div>

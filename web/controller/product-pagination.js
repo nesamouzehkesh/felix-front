@@ -1,6 +1,6 @@
 (function() {
 
-var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','StoreServices', 'Cart']);
+var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','StoreServices', 'Cart', 'ngRoute']);
 
     myApp.controller('MyController', ['$scope', '$http', 'ProductRepository', 'cartService', function 
         ($scope, $http, ProductRepository, cartService) {
@@ -36,8 +36,6 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
             }); 
         };
     }]);
-    
-    
 
     myApp.controller('OtherController', ['$scope', function ($scope) {
       $scope.pageChangeHandler = function(num) {
