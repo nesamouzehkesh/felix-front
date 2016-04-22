@@ -56,7 +56,10 @@
             <div class="alert alert-danger" ng-show="error">
                 Error ({{ error.status }}). The product data was not loaded.
             </div>  
-          
+            
+            <!--This directive generated the top black panel in the main page to just show you 
+            the number of items and the total price of the items you have added to your cart
+            but for details you have to press on "checkout"-->
             <div class="navbar navbar-inverse">
                 <cart-summary />
             </div>
@@ -64,7 +67,8 @@
           <!-- below used to be used for panel generation, but now we use ng-view -->
           <!--  <ng-include src="'views/thePanel.html'"></ng-include>*/ -->
           
-          <!-- this part gets to show any partial view that the current route chooses -->
+          <!-- this part gets to show any partial view that the current route chooses,
+          so they will be placed right under the cart-summary directive html-->
           <ng-view />
         </div>
       </div>
