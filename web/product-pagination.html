@@ -4,69 +4,27 @@
 <head>
   <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/app.css">
-  <!--
-  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-csp.css"></script>
-  <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
-  -->
-  
+
   <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
   <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
   <script type="text/javascript" src="bower_components/angular-route/angular-route.js"></script>   
   
-  <script src="controller/product-pagination.js"></script>
-  <script src="services/storeServices.js"></script>
-  <script src="components/cart.js"></script>
-  <script>
-    angular.module("myApp")
-        .config(function ($routeProvider) {
-            $routeProvider.when("/checkout", {
-                templateUrl: "/views/checkoutSummary.html"
-            });
- 
-            $routeProvider.otherwise({
-                templateUrl: "/views/thePanel.html"
-            });
-        });
-  </script>
-  
+  <script type="text/javascript" src="controller/product-pagination.js"></script>
+  <script type="text/javascript" src="services/storeServices.js"></script>
+  <script type="text/javascript" src="components/cart.js"></script>
+  <script type="text/javascript" src="controller/cartSummaryController.js"></script>
+  <!-- <script src="controllers/checkoutControllers.js"></script> -->
+  <script type="text/javascript" src="controller/app.js"></script>
 </head>
 <body>
   <div class="container">
     <div class="row">
       <div class="col-lg-8">
         <div ng-controller="MyController" class="my-controller">
-          <h1>Product List</h1>
-          <small>this is in "MyController"</small>
-          <div class="row">
-            <div class="col-xs-4">
-              <h3>Current Page: {{ currentPage }}</h3>
-            </div>
-            <div class="col-xs-4">
-              <label for="search">Search:</label>
-              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
-            </div>
-            <div class="col-xs-4">
-              <label for="search">items per page:</label>
-              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
-            </div>
-          </div>
-          <br>
-            <div class="alert alert-danger" ng-show="error">
-                Error ({{ error.status }}). The product data was not loaded.
-            </div>  
-            
-            <!--This directive generated the top black panel in the main page to just show you 
-            the number of items and the total price of the items you have added to your cart
-            but for details you have to press on "checkout"-->
-            <div class="navbar navbar-inverse">
-                <cart-summary />
-            </div>
-          
           <!-- below used to be used for panel generation, but now we use ng-view -->
           <!--  <ng-include src="'views/thePanel.html'"></ng-include>*/ -->
-          
           <!-- this part gets to show any partial view that the current route chooses,
           so they will be placed right under the cart-summary directive html-->
           <ng-view />
@@ -75,6 +33,5 @@
     </div>
   </div>
 </body>
-
 </html>
 

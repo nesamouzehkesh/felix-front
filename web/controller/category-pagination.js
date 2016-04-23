@@ -34,6 +34,4 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination','St
         console.log('going to page ' + num);
       };
     }]);
-    
-
 })();
