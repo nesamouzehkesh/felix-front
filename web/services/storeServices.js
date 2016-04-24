@@ -22,6 +22,14 @@
         }
             };
         }]);
+    
+    StoreServices.factory('OrderRepository', ['$http', function ($http) {
+        return {
+            sendOrder: function(order) {
+                return $http.post('http://felix-rest.com/api/product-order/orders', {order: order});
+            }
+        };
+    }]);
 
     StoreServices.factory('productFactory', function ($resource) {
         return $resource('../api/products/:id', {}, {
