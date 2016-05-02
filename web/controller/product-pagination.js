@@ -18,12 +18,15 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination',
                 $scope.error = error;
           });
             
-        $scope.sendOrder = function (shippingDetails) {
-            var order = angular.copy(shippingDetails);
+        $scope.shipOrder = function (shippingDetails) { //the shipOrder behaviour will use the sendOrder service
+            var order = angular.copy(shippingDetails);  //create a copy of the shipping details
+                                                        //object so that I can safely manipulate it without 
+                                                        //affecting other parts of the application.
             order.products = cartService.getProductsInCart();
             OrderRepository.sendOrder(order)
                 .success(function (data) {
-                    $scope.orders = data;
+                    $scope.orderId = data.id;
+                    cartService.getProductsInCart().length = 0;
                  }) 
                 .error(function (error) {
                     $scope.error = error;

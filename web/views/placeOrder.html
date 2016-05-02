@@ -15,7 +15,7 @@ and invalid form elements to.-->
         <div class="form-group">
             <label>Name</label>
             <input name="name" class="form-control" 
-                   ng-model="data.shipping.name" required/>
+                   ng-model="shippingDetails.name" required/>
             <span class="error" ng-show="shippingForm.name.$error.required">
                 Please enter a name
             </span>
@@ -26,7 +26,7 @@ and invalid form elements to.-->
         <div class="form-group">
             <label>Street Address</label>
             <input name="street" class="form-control" 
-                   ng-model="data.shipping.street" required/>
+                   ng-model="shippingDetails.street" required/>
             <span class="error" ng-show="shippingForm.street.$error.required">
                 Please enter a street address
             </span>
@@ -40,7 +40,7 @@ and invalid form elements to.-->
         <div class="form-group">
             <label>City</label>
             <input name="city" class="form-control"
-                ng-model="data.shipping.city" required />
+                ng-model="shippingDetails.city" required />
         <span class="error" ng-show="shippingForm.city.$error.required">
             Please enter a city
         </span>
@@ -49,7 +49,7 @@ and invalid form elements to.-->
         <div class="form-group">
             <label>State</label>
             <input name="state" class="form-control"
-                ng-model="data.shipping.state" required />
+                ng-model="shippingDetails.state" required />
         <span class="error" ng-show="shippingForm.state.$error.required">
             Please enter a state
         </span>
@@ -58,7 +58,7 @@ and invalid form elements to.-->
         <div class="form-group">
             <label>Zip</label>
             <input name="zip" class="form-control"
-                ng-model="data.shipping.zip" required />
+                ng-model="shippingDetails.zip" required />
         <span class="error" ng-show="shippingForm.zip.$error.required">
             Please enter a zip code
         </span>
@@ -67,7 +67,7 @@ and invalid form elements to.-->
         <div class="form-group">
             <label>Country</label>
             <input name="country" class="form-control"
-                ng-model="data.shipping.country" required />
+                ng-model="shippingDetails.country" required />
         <span class="error" ng-show="shippingForm.country.$error.required">
             Please enter a country
         </span>
@@ -77,14 +77,14 @@ and invalid form elements to.-->
         <div class="checkbox">
             <label>
             <input name="giftwrap" type="checkbox"
-                ng-model="data.shipping.giftwrap" />
+                ng-model="shippingDetails.giftwrap" />
                 Gift wrap these items
             </label>
         </div>
 
         <div class="text-center">
             <button ng-disabled="shippingForm.$invalid"
-                    ng-click="sendOrder(data.shipping)"
+                    ng-click="shipOrder(shippingDetails)"
                     class="btn btn-primary">Complete order</button>
         </div>
     </div>
