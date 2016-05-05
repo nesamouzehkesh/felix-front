@@ -26,8 +26,35 @@ angular.module("storeAdmin")
     $scope.getScreen = function () {
         return $scope.current == "Products"
             ? "/views/adminProducts.html" : "/views/adminOrders.html";
-        };
-});
+        }
+})
+        
 //the controller above is made because we could not have nested ng-view (it is 
 //not allowed in AngularJs, so we had to find another way using a directive to 
-//switch between two different views using ng-include inside ng-view.
+//switch between two different views using ng-include inside ng-view. 
+
+.controller("ordersCtrl", function ($scope, $http) {
+
+    $http.get('http://felix-rest.com/api/product-order/orders')
+        .success(function (data) {
+            $scope.orders = data;
+        })
+        .error(function (error) {
+            $scope.error = error;
+        });
+
+    $scope.selectedOrder;
+
+    $scope.selectOrder = function (order) {
+        $scope.selectedOrder = order;
+    };
+
+    $scope.calcTotal = function (order) {
+        var total = 0;
+        for (var i = 0; i < order.detail.length; i++) {
+            total +=
+                order.detail[i].count * order.detail[i].price;
+        }
+        return total;
+    }
+});

@@ -3,12 +3,13 @@
 var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination',
     'StoreServices', 'Cart', 'ngRoute']);
 
-    myApp.controller('MyController', ['$scope', '$http', 'ProductRepository', 
+    myApp.controller('MyController', ['$scope', '$http', '$location', 'ProductRepository', 
         'OrderRepository', 'cartService', function 
-        ($scope, $http, ProductRepository, OrderRepository, cartService) {
+        ($scope, $http, $location, ProductRepository, OrderRepository, cartService) {
         $scope.currentPage = 1;
         $scope.pageSize = 10;
         $scope.products = [];
+        //$scope.shippingDetails = {giftwrap: false};
 
         ProductRepository.getAllProducts()
           .success(function (data) {
@@ -29,7 +30,7 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination',
                     cartService.getProductsInCart().length = 0;
                  }) 
                 .error(function (error) {
-                    $scope.error = error;
+                    $scope.orderError = error;
                 })
                 .finally(function () {
                     $location.path("/complete");
