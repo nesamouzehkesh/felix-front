@@ -26,6 +26,10 @@
                 $routeProvider.when("/orders", {
                     templateUrl: "/views/adminOrders.html"
                 });
+                
+                $routeProvider.when("/products", {
+                    templateUrl: "/views/adminProducts.html"
+                });
 
                 $routeProvider.otherwise({
                     redirectTo: "/login"
@@ -33,6 +37,7 @@
             });
     </script>
     <script src="controller/adminControllers.js"></script>
+    <script src="controller/adminProductController.js"></script>
 </head>
 <body>
     <ng-view />
