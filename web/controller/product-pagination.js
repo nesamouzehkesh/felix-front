@@ -11,9 +11,17 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination',
         $scope.products = [];
         //$scope.shippingDetails = {giftwrap: false};
         
-        $scope.showList = false;
-        $scope.viewFile = function(showList) {
-            return showList ? "./views/partial/productsList.html" : "./views/partial/productsMain.html";
+        $scope.data = {}; /* 
+         * I have defined the scope property "showList" as a property on an object 
+         * called data. This is required because of the way that AngularJS scopes inherit 
+         * from one another and how some directives—including ng-model — create their own scopes.
+         * Initially the code did not work (did not actually do two-way binding when I used 
+         * $scope.showList only. (This finding was really COOL!)
+         * 
+         * */
+       
+        $scope.viewFile = function() {
+            return $scope.data.showList ? "./views/partial/productsList.html" : "./views/partial/productsMain.html";
         };
 
 

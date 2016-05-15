@@ -24,7 +24,7 @@
           
      <div class="checkbox">
         <label>
-            <input type="checkbox" ng-model="showList">
+            <input type="checkbox" ng-model="data.showList">
                 Quick list view
         </label>
     </div>     
@@ -37,7 +37,7 @@
     </div>
     
     
-    <ng-include src="viewFile(showList)"></ng-include>
+    <ng-include src="viewFile()"></ng-include>
 
     
     <div class="text-center">
