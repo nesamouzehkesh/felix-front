@@ -1,31 +1,72 @@
-<!doctzype html>
-<html ng-app="store">
+<!DOCTYPE html>
+<html ng-app="myApp">
+
 <head>
-    <title>Categories List!</title>
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/app.css">
-    <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
-    <script src="./controller/store.js"></script>
-    <script src="./controller/product.js"></script>
-    <script src="./services/storyServices.js"></script>
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angularUtils-pagination/dirPagination.js"></script>
+  <script src="controller/category-pagination.js"></script>
+  <script src="./services/storeServices.js"></script>
+    
 </head>
 <body>
-    <div class="container">
-        <div class="row margin-top-20">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-9">
-                <div class="panel panel-default">
-                    <div class="panel-body" ng-controller="StoreController as store">
-                        <h3> Select a product category: </h3>
-                        <br>
-                        <div ng-controller="CategoryHighlight">    
-                            <a ng-repeat="category in store.categories" ng-click="selectCategory(category)" ng-class="getCategoryClass(category)" class=" btn btn-block btn-default"> 
-                                Category Name: {{ category.title }} </a><br>
-                        </div>
-                    </div>
-                </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div ng-controller="MyCatController" class="my-controller">
+          <h1>Category List</h1>
+
+          <small>this is in "MyCatController"</small>
+
+
+          <div class="row">
+            <div class="col-xs-4">
+              <h3>Current Page: {{ currentPage }}</h3>
             </div>
+            <div class="col-xs-4">
+              <label for="search">Search:</label>
+              <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+            </div>
+            <div class="col-xs-4">
+              <label for="search">items per page:</label>
+              <input type="number" min="1" max="100" class="form-control" ng-model="pageSize">
+            </div>
+          </div>
+          <br>
+          <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                       <th>Category Title</th>
+                    </thead>
+                    <tbody>
+                        <tr dir-paginate="category in categories | filter:q | itemsPerPage: pageSize" current-page="currentPage">
+                            <td>{{ category.title }}</td>
+                            <td>
+                                <button class="pull-right  btn btn-danger" type="submit" 
+                                        ng-click="deleteItem(category.id)">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+          </div>
         </div>
-    </div>    
+
+        <div ng-controller="CatOtherController" class="other-controller">
+          <small>this is in "CatOtherController"</small>
+          <div class="text-center">
+          <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" 
+              template-url="bower_components/angularUtils-pagination/dirPagination.tpl.html"></dir-pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>
+

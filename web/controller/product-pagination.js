@@ -10,6 +10,12 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination',
         $scope.pageSize = 10;
         $scope.products = [];
         //$scope.shippingDetails = {giftwrap: false};
+        
+        $scope.showList = false;
+        $scope.viewFile = function(showList) {
+            return showList ? "./views/partial/productsList.html" : "./views/partial/productsMain.html";
+        };
+
 
         ProductRepository.getAllProducts()
           .success(function (data) {
@@ -42,7 +48,7 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination',
         };
         
         $scope.addProductToCart = function (product) {
-            cartService.addProduct(product.id, product.name, product.price);
+            cartService.addProduct(product.id, product.title, product.price);
         };
 
         $scope.deleteItem = function (itemId) {
@@ -56,6 +62,8 @@ var myApp = angular.module('myApp', ['angularUtils.directives.dirPagination',
                     }              
             }); 
         };
+
+
     }]);
 
     myApp.controller('OtherController', ['$scope', function ($scope) {

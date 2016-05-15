@@ -1,0 +1,11 @@
+<table class="table table-hover">
+    <thead>
+       <th>Product Title</th>
+    </thead>
+    <tbody> 
+        <tr dir-paginate="product in products | filter:q | itemsPerPage: pageSize" 
+            current-page="currentPage" ng-class="$odd ? 'odd' : 'even'"> 
+            <td>{{ product.title }}</td>
+        </tr>
+    </tbody>
+</table>
