@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="exampleApp">
+    <head>
+        <script src="bower_components/angular/angular.js"></script>
+        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+        
+        
+        <title>Having fun with AngularJS</title>
+       
+       
+        <!-- Here comes the controller -->
+        <script>
+            angular.module("exampleApp", [])
+                    .controller("defaultCtrl", function($scope) {
+                     $scope.todos = [
+                        {action: "String the rackets", complete: false},
+                        {action: "Change the grip", complete: true},
+                        {action: "Buy new balls", complete: false},
+                        {action: "Book the courts", complete: false}
+                     ];  
+            });
+        </script>
+        <style>
+            td > *:first-child {font-weight: bold}
+        </style>
+    </head>
+   
+    <body>
+        <div>This page contains some simple practices</div>
+        <br>
+        
+        <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+            
+            <div class="checkbox well">
+            <label>
+                <input type="checkbox" ng-model="todos[2].complete" />
+                New balls provided</label>
+            </div>
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr><th>Index</th><th>Action</th><th>Status</th></tr>
+                </thead>
+                <tr ng-repeat="item in todos" ng-hide="item.complete">
+                    <td>{{$index + 1}}</td>
+                    <td>{{item.action}}</td>
+                    <td>{{item.complete}}</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
