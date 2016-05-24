@@ -19,23 +19,57 @@ and open the template in the editor.
        
         <!-- Here comes the controller -->
         <script>
-            angular.module("exampleApp", [])
+            angular.module("exampleApp", []) 
                     .controller("defaultCtrl", function($scope) {
                      $scope.todos = [
                         {action: "String the rackets", complete: false},
                         {action: "Change the grip", complete: true},
-                        {action: "Buy new balls", complete: false},
-                        {action: "Book the courts", complete: false}
-                     ];  
+                        {action: "Buy new balls", complete: true},
+                        {action: "Book the courts", complete: false},
+                        {action: "Pay before 7:30 PM", complete: false},
+                        {action: "Send the notification on Thursday night", complete: false}
+                     ]; 
+                     
+                     $scope.buttonNames = ["Red", "Green", "Blue"];
+                     $scope.settings = {
+                         Rows: "Red",
+                         Columns: "Green"
+                     };
+                     
+                     $scope.addNewItem = function (newItem) {
+                         if (angular.isDefined(newItem) && angular.isDefined(newItem.action)
+                            && angular.isDefined(newItem.location)) /* This checking is so important 
+                        for the form fields so that no error is shown if the user does not enter 
+                        anything*/
+                         $scope.todos.push({
+                             action: newItem.action + " (" + newItem.location + ")",
+                             complete: false
+                         });
+                     };
+                     
+                     $scope.addUser = function (userDetails) {
+                         $scope.message = "User " + userDetails.name + " with email: " + userDetails.email
+                         + " has been added. Agreed status: " + userDetails.agreed;
+                     }; 
+                     $scope.message = "Nothing has been entered yet"; //initialization
             });
+            
         </script>
         <style>
             td > *:first-child {font-weight: bold}
+            tr.Red { background-color: lightcoral; }
+            tr.Green { background-color: lightgreen;}
+            tr.Blue { background-color: lightblue; }
+            form .ng-invalid.ng-dirty {background-color: lightpink; }
+            form .ng-valid.ng-dirty {background-color: lightgreen; }
+            span .summary.ng-valid.ng-dirty {color: red; font-weight: bold; }
+            span .summary.ng-valid.ng-dirty {color: green; }
         </style>
+        
     </head>
    
     <body>
-        <div>This page contains some simple practices</div>
+        <div>Directives fantasy!</div>
         <br>
         
         <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
@@ -50,12 +84,169 @@ and open the template in the editor.
                 <thead>
                     <tr><th>Index</th><th>Action</th><th>Status</th></tr>
                 </thead>
-                <tr ng-repeat="item in todos" ng-hide="item.complete">
+                <tr ng-repeat="item in todos | filter: {complete: 'false'}" >
                     <td>{{$index + 1}}</td>
                     <td>{{item.action}}</td>
                     <td>{{item.complete}}</td>
                 </tr>
             </table>
+        </div><br>
+        <!-- 
+Lessons:
+1.  the way that ng-show and ng-hide work means they cannot be easily used in striped tables.
+The problem is that the ng-show and ng-hide directives leave the elements they manage in the DOM 
+and just hide them from the user. They are not hidden from the browser, as it were, and so 
+position-based CSS selectors like this one will count hidden elements. In situations like these, 
+you can remove, rather than hide, elements from the DOM with the ng-if directive.
+
+BUT!!!
+
+2. but you can’t use the ng-if directive on the same element as the ng-repeat directive, like this:
+ 
+
+<tr ng-repeat="item in todos" ng-if="!item.complete">
+
+3. The answer is to use a filter. -->
+        --------------------------------------------------------------------------------------------
+               
+        <div>CSS and Styles in Angular!</div>
+        <br>
+        
+        <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+            
+            <div class="row well">
+                <div class="col-xs-6" ng-repeat="(key, val) in settings">
+                    <h4>{{key}}</h4>
+                    <div class="radio" ng-repeat="button in buttonNames">
+                        <label>
+                            <input type="radio" ng-model="settings[key]" value="{{button}}">
+                            {{button}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <table class="table">
+                <thead>
+                    <tr><th>Index</th><th>Action</th><th>Status</th></tr>
+                </thead>
+                <tr ng-repeat="item in todos" ng-class="settings.Rows" >
+                    <td>{{$index + 1}}</td>
+                    <td>{{item.action}}</td>
+                    <td ng-style="{'background-color': settings.Columns}">{{item.complete}}</td>
+                </tr>
+            </table>
         </div>
+        --------------------------------------------------------------------------------------------
+        <br>
+        Working with forms in Angular!
+        <br>
+        <!-- Implicitly Creating Model Properties: 
+        you can also use two-way data bindings to implicitly create properties in the data model—a 
+        feature that is useful when you are using form elements to gather data from the user in 
+        order to create a new object or property in the data model -->
+        
+        <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+ 
+            <h3 class="panel-header">
+            To Do List
+                <span class="label label-info">
+                    {{(todos | filter: {complete: 'false'}).length}}
+                </span>
+            </h3>
+ 
+            <table class="table">
+                <thead>
+                    <tr><th>#</th><th>Action</th><th>Done</th></tr>
+                </thead>
+                <tr ng-repeat="item in todos">
+                    <td>{{$index + 1}}</td>
+                    <td>{{item.action}}</td>
+                    <td>
+                        <input type="checkbox" ng-model="item.complete">
+                    </td>
+                </tr>
+            </table>
+            
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="well">
+                        <div class="form-group row">
+                            <label for="actionText">Action:</label>
+                            <input id="actionText" class="form-control"
+                                   ng-model="newTodo.action"> <!--the newTodo property is just born 
+                            and has not been mentioned in the model until this very moment, later on 
+                            when we call the addNewItem() function with this property as in 
+                            addNewItem(newTodo) then it will be pushed to the list with its values 
+                            entered in the form by the user. In other words:
+                            There are no errors when you retrieve a nonexistent object or property, 
+                            and when you assign a value to an object or property that doesn’t exist,
+                            AngularJS will simply create it for you—producing what is known as an 
+                            implicitly defined value or object.-->
+                        </div>
+                         
+                        <div class="form-group row">
+                            <label for="actionLocation">Location</label>
+                            <select id="actionLocation" class="form-control"
+                                    ng-model="newTodo.location">
+                                <option>Home</option>
+                                <option>Office</option>
+                                <option>Mall</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary btn-block"
+                                ng-click="addNewItem(newTodo)">
+                            Add
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    ------------------------------------------------------------------------------------------------
+    <br>
+        Let's do form validation in Angular!
+    <br>
+    <div ng-controller="defaultCtrl">
+        <form name="myForm" novalidate ng-submit="addUser(newUser)">
+            <div class="well">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input name="userName" type="text" class="form-control"
+                           required ng-model="newUser.name">
+                </div>
+                <div class="from-group">
+                    <label>Email:</label>
+                    <input name="userEmail" type="email" class="form-control"
+                           required ng-model="newUser.email">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input name="agreed" type="checkbox"
+                               ng-model="newUser.agreed" required>
+                        I agree to the terms and conditions
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary btn-block"
+                        ng-disabled="myForm.$invalid">
+                    OK
+                </button>
+            </div>
+            <div class="well">
+                Message: {{message}}
+                <div>
+                    Valid:
+                    <span class="summary"
+                          ng-class="myForm.$valid ? 'ng-valid' : 'ng-invalid'">
+                        {{myForm.$valid}}
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+        
+    
     </body>
 </html>
+
