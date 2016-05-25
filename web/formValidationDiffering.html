@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="exampleApp">
+    <head>
+        <script src="bower_components/angular/angular.js"></script>
+        <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css"/>
+        
+        
+        <title>Having fun with AngularJS</title>
+       
+       
+        <!-- Here comes the controller -->
+        <script>
+            angular.module("exampleApp", []) 
+                    .controller("defaultCtrl", function($scope) {
+                     $scope.todos = [
+                        {action: "String the rackets", complete: false},
+                        {action: "Change the grip", complete: true},
+                        {action: "Buy new balls", complete: true},
+                        {action: "Book the courts", complete: false},
+                        {action: "Pay before 7:30 PM", complete: false},
+                        {action: "Send the notification on Thursday night", complete: false}
+                     ]; 
+                     
+                     $scope.buttonNames = ["Red", "Green", "Blue"];
+                     $scope.settings = {
+                         Rows: "Red",
+                         Columns: "Green"
+                     };
+                     
+                     $scope.addNewItem = function (newItem) {
+                         if (angular.isDefined(newItem) && angular.isDefined(newItem.action)
+                            && angular.isDefined(newItem.location)) /* This checking is so important 
+                        for the form fields so that no error is shown if the user does not enter 
+                        anything*/
+                         $scope.todos.push({
+                             action: newItem.action + " (" + newItem.location + ")",
+                             complete: false
+                         });
+                     };
+                     
+                     $scope.addUser = function (userDetails) {
+                        if (myForm.$valid) {
+                                $scope.message = userDetails.name + " has been added. Agreed status: "
+                                        + userDetails.agreed;
+                        } else {
+                            $scope.showValidation = true;     
+                        }
+                    }; /* This is the structure for differing the validation to when the button is 
+                        * clicked and not as the user types in the form */
+                        
+                     $scope.message = "Nothing has been entered yet"; //initialization
+                     
+                     $scope.getError = function (error) { /* this is validation in a better way; if we 
+                         use this method then we will not end up with a lot of elements in our markup 
+                         that duplicate the same messages */
+                         if (angular.isDefined(error)) {
+                             if (error.required) {
+                                 return "Please enter a value";
+                             } else if (error.email) {
+                                 return "Please enter a valid email address";
+                             }
+                         }
+                     };
+            });
+            
+        </script>
+        <style>
+            td > *:first-child {font-weight: bold}
+            tr.Red { background-color: lightcoral; }
+            tr.Green { background-color: lightgreen;}
+            tr.Blue { background-color: lightblue; }
+            //form .ng-invalid.ng-dirty {background-color: lightpink; } //This was with no feedback to user
+            //form .ng-valid.ng-dirty {background-color: lightgreen; } //This was with no feedback to user
+            form .ng-invalid-required.ng-dirty { background-color: lightpink; }
+            form .ng-invalid-email.ng-dirty { background: lightgoldenrodyellow; }
+            span .summary.ng-valid.ng-dirty {color: red; font-weight: bold; }
+            span .summary.ng-valid.ng-dirty {color: green; }
+            div .error {color: red; font-weight: bold; }
+            form.validate .ng-invalid-required.ng-dirty { background-color: lightpink; }
+            form.validate .ng-invalid-email.ng-dirty { 
+                background-color: lightgoldenrodyellow; }
+            div.error { color: red; font-weight: bold; }
+        </style>
+        
+    </head>
+   
+    <body>
+        
+    <br>
+        The validation of this form will be differed til after the user clicks OK.
+    <br>
+    <div id="todoPanel" class="panel" ng-controller="defaultCtrl">
+        <form name="myForm" novalidate ng-submit="addUser(newUser)"
+              ng-class="showValidation ? 'validate' : ''">
+            
+            <div class="well">
+                <div class="form-group">
+                    <label>Name:</label>
+                    <input name="userName" type="text" class="form-control"
+                           required ng-model="newUser.name">
+                </div>
+                <div class="from-group">
+                    <label>Email:</label>
+                    <input name="userEmail" type="email" class="form-control"
+                           required ng-model="newUser.email">
+                </div>
+                <div class="checkbox">
+                    <label>
+                        <input name="agreed" type="checkbox"
+                               ng-model="newUser.agreed" required>
+                        I agree to the terms and conditions
+                    </label>
+                </div>
+                
+                <div class='error' ng-show='showValidation'>
+                    {{ getError(myForm.userEmail.$error) }} <br>
+                    {{ getError(myForm.userName.$error)}} <br>
+                    
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">
+                    OK
+                </button>
+            </div>
+            
+        </form>
+    </div>
+        
+    
+    </body>
+</html>
+

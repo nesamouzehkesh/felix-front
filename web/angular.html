@@ -52,6 +52,18 @@ and open the template in the editor.
                          + " has been added. Agreed status: " + userDetails.agreed;
                      }; 
                      $scope.message = "Nothing has been entered yet"; //initialization
+                     
+                     $scope.getError = function (error) { /* this is validation in a better way; if we 
+                         use this method then we will not end up with a lot of elements in our markup 
+                         that duplicate the same messages */
+                         if (angular.isDefined(error)) {
+                             if (error.required) {
+                                 return "Please enter a value";
+                             } else if (error.email) {
+                                 return "Please enter a valid email address";
+                             }
+                         }
+                     };
             });
             
         </script>
@@ -60,10 +72,13 @@ and open the template in the editor.
             tr.Red { background-color: lightcoral; }
             tr.Green { background-color: lightgreen;}
             tr.Blue { background-color: lightblue; }
-            form .ng-invalid.ng-dirty {background-color: lightpink; }
-            form .ng-valid.ng-dirty {background-color: lightgreen; }
+            //form .ng-invalid.ng-dirty {background-color: lightpink; } //This was with no feedback to user
+            //form .ng-valid.ng-dirty {background-color: lightgreen; } //This was with no feedback to user
+            form .ng-invalid-required.ng-dirty { background-color: lightpink; }
+            form .ng-invalid-email.ng-dirty { background: lightgoldenrodyellow; }
             span .summary.ng-valid.ng-dirty {color: red; font-weight: bold; }
             span .summary.ng-valid.ng-dirty {color: green; }
+            div .error {color: red; font-weight: bold; }
         </style>
         
     </head>
@@ -228,6 +243,27 @@ BUT!!!
                         I agree to the terms and conditions
                     </label>
                 </div>
+                <div class='error' ng-show='myForm.userEmail.$invalid && myForm.userEmail.$dirty'>
+                    <!--The continuous nature of AngularJS validation means that an empty, pristine 
+                    input element with the required attribute is invalid, because it contains no value. 
+                    I don’t want to display an error message before the user has started to even enter 
+                    data, so I check that $dirty is true , indicating that the user has interacted 
+                    with the element, before displaying the error message.-->
+                    
+                    
+                    <!-- OLD METHOD 
+                    <span ng-show='myForm.userEmail.$error.email'>
+                        Please enter a valid email address
+                    </span>
+                    <span ng-show='myForm.userEmail.$error.required'>
+                        Please enter an email address
+                    </span> 
+                    -->
+                    
+                    <!-- NEW METHOD -->
+                    {{ getError(myForm.userEmail.$error) }}
+                </div>
+                
                 <button type="submit" class="btn btn-primary btn-block"
                         ng-disabled="myForm.$invalid">
                     OK
@@ -243,6 +279,7 @@ BUT!!!
                     </span>
                 </div>
             </div>
+            
         </form>
     </div>
         
